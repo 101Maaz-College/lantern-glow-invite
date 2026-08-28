@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useGsap, prefersReducedMotion } from "@/lib/motion";
+import { getGsap, prefersReducedMotion } from "@/lib/motion";
 
 interface Options {
   /** delay before the light begins to swell */
@@ -24,7 +24,7 @@ export function useLightSection<T extends HTMLElement = HTMLElement>(options: Op
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const { gsap, ScrollTrigger } = useGsap();
+    const { gsap, ScrollTrigger } = getGsap();
     const reduced = prefersReducedMotion();
 
     const ctx = gsap.context(() => {

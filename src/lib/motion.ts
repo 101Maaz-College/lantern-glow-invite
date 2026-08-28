@@ -3,7 +3,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 let registered = false;
 
-export function useGsap() {
+export function getGsap() {
   if (typeof window !== "undefined" && !registered) {
     gsap.registerPlugin(ScrollTrigger);
     registered = true;

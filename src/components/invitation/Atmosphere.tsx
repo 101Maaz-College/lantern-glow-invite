@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useGsap, prefersReducedMotion } from "@/lib/motion";
+import { getGsap, prefersReducedMotion } from "@/lib/motion";
 
 /** Drifting dust motes + haze, fixed behind everything. */
 export function Atmosphere() {
@@ -20,7 +20,7 @@ export function Atmosphere() {
   useEffect(() => {
     const el = ref.current;
     if (!el || prefersReducedMotion()) return;
-    const { gsap } = useGsap();
+    const { gsap } = getGsap();
     const ctx = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>(".mote").forEach((m, i) => {
         gsap.to(m, {
