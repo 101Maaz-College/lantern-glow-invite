@@ -192,8 +192,8 @@ body {
 /* Lighting scope: --lit drives every glow inside a section */
 @utility lit-scope {
   background:
-    radial-gradient(120% 70% at 50% 18%, color-mix(in oklab, var(--burgundy) calc(28% * var(--lit, 0)), transparent), transparent 70%),
-    linear-gradient(to bottom, transparent, color-mix(in oklab, var(--ember) calc(5% * var(--lit, 0)), transparent));
+    radial-gradient(120% 70% at 50% 18%, color-mix(in oklab, var(--burgundy) calc(16% * var(--lit, 0)), transparent), transparent 70%),
+    linear-gradient(to bottom, transparent, color-mix(in oklab, var(--ember) calc(3% * var(--lit, 0)), transparent));
 }
 
 .lantern-glow { opacity: var(--lit, 0); transition: none; }

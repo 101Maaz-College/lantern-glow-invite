@@ -58,7 +58,7 @@ export function useLightSection<T extends HTMLElement = HTMLElement>(options: Op
 
       if (parallax && !reduced) {
         el.querySelectorAll<HTMLElement>("[data-depth]").forEach((layer) => {
-          const depth = parseFloat(layer.dataset.depth || "0");
+          const depth = parseFloat(layer.dataset['depth'] || "0");
           gsap.fromTo(
             layer,
             { yPercent: depth * 8 },
