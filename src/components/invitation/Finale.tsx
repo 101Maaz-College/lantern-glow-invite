@@ -17,7 +17,7 @@ export function Finale() {
   return (
     <section
       ref={ref}
-      className="lit-scope finale relative z-10 flex min-h-[110svh] flex-col items-center justify-center overflow-hidden px-6 py-28"
+      className="lit-scope finale relative z-10 flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 py-28"
       style={{ ["--lit" as string]: 0 }}
     >
       {/* canopy of lanterns */}
@@ -34,7 +34,7 @@ export function Finale() {
         ))}
       </div>
 
-      <div className="relative mt-40 flex flex-col items-center text-center">
+      <div className="relative mt-28 flex flex-col items-center text-center">
         <p className="reveal text-[0.55rem] uppercase tracking-[0.5em] text-[color:var(--gold)]/75">
           With love
         </p>

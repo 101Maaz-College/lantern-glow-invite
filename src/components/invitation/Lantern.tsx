@@ -48,7 +48,7 @@ export function Lantern({
               width: glow,
               height: glow,
               background:
-                "radial-gradient(circle, color-mix(in oklab, var(--ember) 26%, transparent) 0%, color-mix(in oklab, var(--ember) 9%, transparent) 32%, transparent 68%)",
+                "radial-gradient(circle, color-mix(in oklab, var(--ember) 18%, transparent) 0%, color-mix(in oklab, var(--ember) 6%, transparent) 32%, transparent 68%)",
             }}
           />
           {/* mid glow */}
@@ -65,12 +65,12 @@ export function Lantern({
           <div
             className="lantern-glow absolute left-1/2 top-1/2 -translate-x-1/2"
             style={{
-              width: size * 3.2,
-              height: size * 7,
+              width: size * 2.6,
+              height: size * 5,
               background:
-                "linear-gradient(to bottom, color-mix(in oklab, var(--ember) 14%, transparent), transparent 72%)",
+                "linear-gradient(to bottom, color-mix(in oklab, var(--ember) 7%, transparent), transparent 70%)",
               clipPath: "polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%)",
-              filter: "blur(14px)",
+              filter: "blur(26px)",
             }}
           />
 
