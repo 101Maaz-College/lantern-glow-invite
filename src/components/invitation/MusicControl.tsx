@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { invitation } from "@/data/invitation";
 
 /**
  * Discreet fixed music control. Never autoplays with sound —
- * playback only starts from a user gesture.
+ * playback only starts from a user gesture, and fails silently.
  */
-export function MusicControl() {
+export function MusicControl({ enabled, src }: { enabled: boolean; src?: string }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -15,7 +14,7 @@ export function MusicControl() {
     };
   }, []);
 
-  if (!invitation.music.enabled) return null;
+  if (!enabled || !src) return null;
 
   const toggle = () => {
     const el = audioRef.current;
@@ -24,15 +23,16 @@ export function MusicControl() {
       el.pause();
       setPlaying(false);
     } else {
-      void el.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+      void el
+        .play()
+        .then(() => setPlaying(true))
+        .catch(() => setPlaying(false));
     }
   };
 
   return (
     <>
-      {invitation.music.src && (
-        <audio ref={audioRef} src={invitation.music.src} loop preload="none" />
-      )}
+      <audio ref={audioRef} src={src} loop preload="none" onError={() => setPlaying(false)} />
       <button
         type="button"
         onClick={toggle}
