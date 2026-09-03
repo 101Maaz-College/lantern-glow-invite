@@ -1,9 +1,15 @@
 import { useEffect, useRef } from "react";
 import { Lantern } from "./Lantern";
 import { getGsap, prefersReducedMotion } from "@/lib/motion";
-import { invitation } from "@/data/invitation";
 
-export function Hero() {
+interface HeroProps {
+  invocation?: string;
+  groomName?: string;
+  brideName?: string;
+  dateLine?: string;
+}
+
+export function Hero({ invocation, groomName, brideName, dateLine }: HeroProps) {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -41,7 +47,7 @@ export function Hero() {
     return () => ctx.revert();
   }, []);
 
-  const { invocation, groomName, brideName, date } = invitation;
+  const names = [groomName, brideName].filter(Boolean) as string[];
 
   return (
     <section
@@ -54,36 +60,36 @@ export function Hero() {
       </div>
 
       <div className="relative -mt-10 flex flex-col items-center text-center">
-        {invocation.preset !== "none" && invocation.text && (
-          <p
-            className="hero-reveal invocation max-w-[22ch] text-balance text-[color:var(--gold)]"
-            dir={invocation.rtl ? "rtl" : "ltr"}
-            lang={invocation.lang}
-          >
-            {invocation.text}
-          </p>
-        )}
-        {invocation.translation && (
-          <p className="hero-reveal mt-3 text-[0.62rem] uppercase tracking-[0.28em] text-[color:var(--ivory)]/40">
-            {invocation.translation}
+        {invocation && (
+          <p className="hero-reveal invocation max-w-[24ch] text-balance text-[color:var(--gold)]">
+            {invocation}
           </p>
         )}
 
         <div className="hero-reveal mt-10 rule" />
 
-        <h1 className="mt-8 flex flex-col items-center">
-          <span className="hero-reveal display text-[2.9rem] leading-[1.05] text-[color:var(--ivory)] sm:text-6xl">
-            {groomName.toUpperCase()}
-          </span>
-          <span className="hero-reveal my-2 display text-2xl italic text-[color:var(--gold)] sm:text-3xl">&amp;</span>
-          <span className="hero-reveal display text-[2.9rem] leading-[1.05] text-[color:var(--ivory)] sm:text-6xl">
-            {brideName.toUpperCase()}
-          </span>
-        </h1>
+        {names.length > 0 && (
+          <h1 className="mt-8 flex flex-col items-center">
+            {names.map((name, i) => (
+              <span key={name} className="flex flex-col items-center">
+                {i > 0 && (
+                  <span className="hero-reveal my-2 display text-2xl italic text-[color:var(--gold)] sm:text-3xl">
+                    &amp;
+                  </span>
+                )}
+                <span className="hero-reveal display text-[2.9rem] leading-[1.05] text-[color:var(--ivory)] sm:text-6xl">
+                  {name.toUpperCase()}
+                </span>
+              </span>
+            ))}
+          </h1>
+        )}
 
-        <p className="hero-reveal mt-8 text-[0.68rem] uppercase tracking-[0.46em] text-[color:var(--ivory)]/65">
-          {date}
-        </p>
+        {dateLine && (
+          <p className="hero-reveal mt-8 text-[0.68rem] uppercase tracking-[0.46em] text-[color:var(--ivory)]/65">
+            {dateLine}
+          </p>
+        )}
         <div className="hero-reveal mt-8 rule" />
       </div>
 
