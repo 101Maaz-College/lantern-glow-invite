@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { getGsap, prefersReducedMotion } from "@/lib/motion";
-import { invitation } from "@/data/invitation";
 import { Lantern } from "./Lantern";
 import { useLightSection } from "./useLightSection";
+import type { PublicGalleryItem } from "@/lib/publicInvitation";
 
-export function Gallery() {
+export function Gallery({ items }: { items: PublicGalleryItem[] }) {
   const ref = useLightSection<HTMLElement>({ parallax: false });
   const zoomRef = useRef<HTMLDivElement | null>(null);
 
@@ -21,13 +21,20 @@ export function Gallery() {
             scale: 1,
             yPercent: 4,
             ease: "none",
-            scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: 0.8 },
+            scrollTrigger: {
+              trigger: img.parentElement,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.8,
+            },
           },
         );
       });
     }, el);
     return () => ctx.revert();
-  }, []);
+  }, [items.length]);
+
+  if (!items.length) return null;
 
   return (
     <section
@@ -43,16 +50,16 @@ export function Gallery() {
         <p className="reveal text-center text-[0.55rem] uppercase tracking-[0.44em] text-[color:var(--gold)]/70">
           Moments
         </p>
-        {invitation.gallery.map((item, i) => (
+        {items.map((item, i) => (
           <figure
-            key={item.src}
+            key={`${item.url}-${i}`}
             className={`reveal relative overflow-hidden frame ${i % 2 ? "sm:ml-16" : "sm:mr-16"}`}
           >
             <img
-              src={item.src}
+              src={item.url}
               alt={item.alt}
-              width={item.width}
-              height={item.height}
+              {...(item.width ? { width: item.width } : {})}
+              {...(item.height ? { height: item.height } : {})}
               loading="lazy"
               className="gallery-img h-full w-full object-cover"
             />

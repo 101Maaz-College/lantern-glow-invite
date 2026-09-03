@@ -1,10 +1,11 @@
 import { Lantern } from "./Lantern";
 import { useLightSection } from "./useLightSection";
-import { invitation } from "@/data/invitation";
+import type { LiveContent } from "@/lib/publicInvitation";
 
-export function Venue() {
+export function Venue({ venue }: { venue: LiveContent["venue"] }) {
   const ref = useLightSection<HTMLElement>();
-  const { venue } = invitation;
+
+  if (!venue.name && !venue.address && !venue.city && !venue.imageUrl) return null;
 
   return (
     <section
@@ -12,7 +13,6 @@ export function Venue() {
       className="lit-scope relative z-10 flex min-h-[100svh] items-center justify-center overflow-hidden px-6 py-24"
       style={{ ["--lit" as string]: 0 }}
     >
-      {/* architectural silhouettes */}
       <svg
         className="pointer-events-none absolute bottom-0 left-1/2 w-[140%] max-w-none -translate-x-1/2 arch-silhouette"
         viewBox="0 0 800 320"
@@ -38,16 +38,30 @@ export function Venue() {
         <p className="reveal text-[0.55rem] uppercase tracking-[0.44em] text-[color:var(--gold)]/70">
           The Venue
         </p>
-        <h2 className="reveal mt-5 display text-3xl leading-tight text-[color:var(--ivory)] sm:text-5xl">
-          {venue.name}
-        </h2>
+        {venue.imageUrl && (
+          <img
+            src={venue.imageUrl}
+            alt={venue.name ? `${venue.name} venue` : "Venue"}
+            loading="lazy"
+            className="reveal mt-7 w-full frame object-cover"
+          />
+        )}
+        {venue.name && (
+          <h2 className="reveal mt-5 display text-3xl leading-tight text-[color:var(--ivory)] sm:text-5xl">
+            {venue.name}
+          </h2>
+        )}
         <div className="reveal mx-auto mt-7 rule" />
-        <p className="reveal mt-7 text-sm tracking-[0.16em] text-[color:var(--ivory)]/60">
-          {venue.address}
-        </p>
-        <p className="reveal mt-1 text-sm uppercase tracking-[0.3em] text-[color:var(--ivory)]/45">
-          {venue.city}
-        </p>
+        {venue.address && (
+          <p className="reveal mt-7 text-sm tracking-[0.16em] text-[color:var(--ivory)]/60">
+            {venue.address}
+          </p>
+        )}
+        {venue.city && (
+          <p className="reveal mt-1 text-sm uppercase tracking-[0.3em] text-[color:var(--ivory)]/45">
+            {venue.city}
+          </p>
+        )}
         {venue.mapsUrl && (
           <a
             className="reveal btn-ember mt-10 inline-block"
