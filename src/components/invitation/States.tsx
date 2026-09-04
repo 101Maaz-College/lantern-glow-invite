@@ -52,9 +52,8 @@ export function RequestErrorScreen({ onRetry }: { onRetry?: () => void }) {
 }
 
 export function FallbackScreen({ shop }: { shop: ShopFallback }) {
-  const lines = [shop.address, shop.city, shop.business_contact_placeholder].filter(
-    Boolean,
-  ) as string[];
+  const lines = [shop.address, shop.city, shop.businessContact].filter(Boolean) as string[];
+
 
   return (
     <Shell>
